@@ -21,7 +21,7 @@ Game Rules
 
 Installation
 1. Clone the repository to your local machine.
-$ git clone https://github.com/yourusername/snake-and-ladder.git
+$ git clone git@github.com:pkverma2974/cpp_backend.git
 
 2. Navigate to the project directory.
 $ cd snake_ladder
