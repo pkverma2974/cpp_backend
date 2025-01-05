@@ -6,11 +6,12 @@
 CarParking::CarParking()
 {
     string input;
-    cout << "Enter parking limits: ";
     while (true)
     {
+        cout << "Enter parking limits: ";
         cin >> input; // Read the input as a string
-        try
+        // Validate that the input contains only digits
+        if (isValidNumber(input))
         {
             parking_limits = stoi(input); // Try to convert the string to an integer
             if (parking_limits <= 0)
@@ -22,17 +23,10 @@ CarParking::CarParking()
                 break; // Valid input, exit the loop
             }
         }
-        catch (const invalid_argument &e)
+        else
         {
-            // If stoi throws an invalid_argument exception, input is not a valid number
-            cout << yellow_ << "Warning: " << "Enter a valid number!" << reset_ << endl;
+            cout << yellow_ << "WARNING: " << "Enter a valid number of limits (no letters or symbols allowed)!" << reset_ << endl;
         }
-        catch (const out_of_range &e)
-        {
-            // If the number is too large for an int, handle this exception
-            cout << yellow_ << "Warning: " << "The number is too large. Please try again!" << reset_ << endl;
-        }
-        cout << "Enter parking limits: ";
     }
 
     cout << "Parking limits set to: " << parking_limits << endl;
@@ -52,23 +46,36 @@ CarParking::CarParking()
     }
 }
 
+bool CarParking::isValidNumber(string input)
+{
+    // Check if all characters in the input string are digits
+    for (char ch : input)
+    {
+        if (!isdigit(ch))
+        {
+            return false; // Return false if any character is not a digit
+        }
+    }
+    return true;
+}
+
 /**
  * @brief Continuously monitors the user input for parking and outing actions.
  * Provides options for checking car status, parking cars, and outing cars.
  */
 void CarParking::carMovement()
 {
-    cout << "Press Key (status->0, parking->1, outing->2): ";
     int type = 0; // 1 for parking, 2 for outing
     string input;
     while (true)
     {
+        cout << "Press Key (status->0, parking->1, outing->2): ";
         cin >> input;
-        try
+        // Validate that the input contains only digits
+        if (isValidNumber(input))
         {
             type = stoi(input);
             string plate_no = "";
-
             if (type == 0)
             {
                 carPosition(); // Display current parking and waiting car status
@@ -89,14 +96,13 @@ void CarParking::carMovement()
             }
             else
             {
-                cout << yellow_ << "Warning: " << "Enter a valid number from given range!" << reset_ << endl;
+                cout << yellow_ << "Warning: " << "Enter a valid key from given menu!" << reset_ << endl;
             }
         }
-        catch (const std::exception &e)
+        else
         {
-            cout << yellow_ << "Warning: " << "Enter a valid key!" << reset_ << endl;
+            cout << yellow_ << "WARNING: " << "Enter a valid key(no letters or symbols allowed)!" << reset_ << endl;
         }
-        cout << "Press Key (status->0, parking->1, outing->2): ";
     }
 }
 

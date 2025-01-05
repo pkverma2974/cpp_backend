@@ -34,6 +34,12 @@ public:
      * @brief Continuously monitors the movement of cars, either parking or outing.
      * Handles user input for car status, parking, and outing.
      */
+    /*!
+     * \brief Checks if the input string contains only numeric digits.
+     * \param input The string to be validated.
+     * \return Returns true if the input contains only digits, false otherwise.
+     */
+    bool isValidNumber(string input);
     void carMovement();
 
     /**
