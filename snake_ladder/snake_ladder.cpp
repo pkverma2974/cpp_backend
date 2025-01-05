@@ -1,8 +1,45 @@
 #include "snake_ladder.hpp"
 
-snake_ladder::snake_ladder(int num)
+snake_ladder::snake_ladder()
 {
+    int num = 0;
+    string input;
+    while (true)
+    {
+        cout << "Enter number of players: ";
+        cin >> input;
+        // Validate that the input contains only digits
+        if (isValidNumber(input))
+        {
+            num = stoi(input);
+            if (num >= 2 && num <= 4)
+            {
+                break; // Valid input, break the loop
+            }
+            else
+            {
+                cout << yellow_ << "WARNING: " << "Number of players should be at least 2 and max 4" << reset_ << endl;
+            }
+        }
+        else
+        {
+            cout << yellow_ << "WARNING: " << "Enter a valid number of players (no letters or symbols allowed)!" << reset_ << endl;
+        }
+    }
     num_ = num;
+}
+
+bool snake_ladder::isValidNumber(string input)
+{
+    // Check if all characters in the input string are digits
+    for (char ch : input)
+    {
+        if (!isdigit(ch))
+        {
+            return false; // Return false if any character is not a digit
+        }
+    }
+    return true;
 }
 
 void snake_ladder::snake_end_point()
@@ -40,7 +77,7 @@ void snake_ladder::players_detail()
         }
         else
         {
-            cout << "Name should be unique\n";
+            cout << yellow_ << "WARNING: " << "Name should be unique" << reset_ << endl;
         }
     }
     cout << "Players name registered\n";
@@ -114,24 +151,17 @@ string snake_ladder::start_game()
 
 int main()
 {
-    cout << "Enter number of players: ";
-    int num = 0;
-    cin >> num;
-    while (num < 2 || num > 4)
-    {
-        cout << "Number of player should be at least 2 and max 4\n";
-        cin >> num;
-    }
-
-    snake_ladder sn_lad_obj(num);
+    snake_ladder sn_lad_obj;
+    cout << "Number of players: " << sn_lad_obj.num_ << endl;
     sn_lad_obj.snake_end_point();
     sn_lad_obj.ladder_end_point();
     cout << "snake & ladder map created\n";
 
     sn_lad_obj.players_detail();
+    cout << "Starting the game!\n";
     string winner_ = sn_lad_obj.start_game();
 
-    cout << "Winner of the Match is " << winner_ << "\n";
+    cout << sn_lad_obj.yellow_ << "INFO: " << "Winner of the Match is " << winner_ << sn_lad_obj.reset_ << endl;
     cout << "current status\n";
     for (auto it : sn_lad_obj.players_map)
     {

@@ -7,17 +7,29 @@ using namespace std;
 class snake_ladder
 {
 private:
+    unordered_map<int, int> snake_map;  // it contains the snake end and starting point
+    unordered_map<int, int> ladder_map; // it contains the ladder starting and end point
+
 public:
-    int num_;
-    unordered_map<int, int> snake_map;      // it contains the snake end and starting point
-    unordered_map<int, int> ladder_map;     // it contains the ladder starting and end point
-    unordered_map<string, int> players_map; // it contains the players and their respective position
     /*!
-     * \brief Constructor for the Snake and Ladder game.
-     * \param num: The number of players in the game. It is used to set up the game
+     * \param num_: The number of players in the game. It is used to set up the game
      *            board and initialize the required structures for the players.
      */
-    snake_ladder(int num);
+    int num_;
+    unordered_map<string, int> players_map; // it contains the players and their respective position
+    // Color constants for better output readability.
+    const std::string reset_ = "\033[0m";   // Reset to default color
+    const std::string yellow_ = "\033[33m"; // Yellow color for warnings
+    /*!
+     * \brief Constructor for the Snake and Ladder game.
+     */
+    snake_ladder();
+    /*!
+     * \brief Checks if the input string contains only numeric digits.
+     * \param input The string to be validated.
+     * \return Returns true if the input contains only digits, false otherwise.
+     */
+    bool isValidNumber(string input);
     /*!
      * \brief Calculates the end point of a snake on the game board.
      *
